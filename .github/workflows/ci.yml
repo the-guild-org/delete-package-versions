@@ -1,20 +1,25 @@
-name: Package and Smoke Test
 
-on: # rebuild any PRs and main branch changes
-  pull_request:
-  push:
-    branches:
-      - main
-      - 'releases/*'
+name: CI
+
+on: [push, pull_request]
 
 jobs:
 
-  lint:
+  ci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command: [lint, format]
     steps:
       - uses: actions/checkout@v2
-      - run: npm install
-      - run: npm run lint
+      - run: npm ${{ matrix.command }}
+
+#  lint:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - run: npm install
+#      - run: npm run lint
 #
 #
 #  package: # make sure build/ci work properly
