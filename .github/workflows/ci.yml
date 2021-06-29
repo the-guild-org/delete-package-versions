@@ -22,7 +22,7 @@ jobs:
       - run: npm run test
         name: Unit test
 
-      - run: npm run clean && tsc && ncc build
+      - run: npm run clean && tsc && npm run ncc
         name: Build
 
 #  lint:

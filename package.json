@@ -11,6 +11,7 @@
     "test": "jest",
     "clean": "rm -rf ./lib ./dist",
     "build": "npm run clean && npm run format-check && npm run lint && npm run test && tsc",
+    "ncc": "ncc build",
     "pack": "npm run build && ncc build"
   },
   "repository": {
