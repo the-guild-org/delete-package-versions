@@ -10,9 +10,10 @@
     "lint": "eslint src/**/*.ts",
     "test": "jest",
     "clean": "rm -rf ./lib ./dist",
-    "build": "npm run clean && npm run format-check && npm run lint && npm run test && tsc",
+    "tsc": "tsc",
     "ncc": "ncc build",
-    "pack": "npm run build && ncc build"
+    "build": "npm run clean && npm run format-check && npm run lint && npm run test && npm run tsc",
+    "pack": "npm run build && npm run ncc"
   },
   "repository": {
     "type": "git",
