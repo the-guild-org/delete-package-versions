@@ -5,15 +5,19 @@ on: [push, pull_request]
 
 jobs:
 
-  ci:
+  CI:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        command: [lint, format]
     steps:
+
       - uses: actions/checkout@v2
+        name: Checkout repo
+
       - run: npm install
-      - run: npm ${{ matrix.command }}
+        name: Install dependencies
+
+      - run: npm run lint
+        name: Lint
+
 
 #  lint:
 #    runs-on: ubuntu-latest
