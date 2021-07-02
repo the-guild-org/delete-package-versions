@@ -2,6 +2,7 @@
 import {Observable} from 'rxjs'
 import {PackageType} from './package-type'
 import {OwnerType} from './owner-type'
+import {RestEndpointMethodTypes} from '@octokit/plugin-rest-endpoint-methods'
 
 export interface PackagesClientParams {
   token: string
@@ -16,7 +17,7 @@ export interface DeleteVersionParams extends PackagesClientParams {
 }
 
 export interface PackagesClient {
-  deleteVersion(params: DeleteVersionParams): Observable<boolean>
+  deleteVersion(params: DeleteVersionParams): Observable<RestEndpointMethodTypes["users"]["getByUsername"]["response"]>
 }
 
 // import {getOctokit} from '@actions/github'

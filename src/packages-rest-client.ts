@@ -1,15 +1,24 @@
 import {DeleteVersionParams, PackagesClient, PackagesClientParams} from './packages-client'
-import {Observable, of} from 'rxjs'
+import {from, Observable, of} from 'rxjs'
 import {OwnerType} from './owner-type'
 import {PackageType} from './package-type'
 import {concatMap} from 'rxjs/operators'
+import {getOctokit} from '@actions/github'
+import {RestEndpointMethodTypes} from '@octokit/plugin-rest-endpoint-methods'
 
 export class PackagesRestClient implements PackagesClient {
 
-  deleteVersion(params: DeleteVersionParams): Observable<boolean> {
+  deleteVersion(params: DeleteVersionParams): Observable<RestEndpointMethodTypes["users"]["getByUsername"]["response"]> {
 
     return PackagesRestClient.validateDeleteVersionParams(params).pipe(
-      concatMap(() => of(true))
+      concatMap(validatedParams => {
+        console.log(`token: ${validatedParams.token}`)
+        const octokit = getOctokit(validatedParams.token)
+        return from(octokit.rest.users.getByUsername({
+          username: 'trent-j'
+        }))
+      })
+      // concatMap(() => of(true))
     )
   }
 

@@ -11,155 +11,185 @@ describe('PackagesRestClient tests', () => {
     client = PackagesRestClient.create()
   })
 
-  test('deleteVersion validation fails when token is undefined', done => {
+  describe('deleteVersion tests', () => {
 
-    client.deleteVersion(getDeleteVersionParams({token: undefined})).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing token')
-        done()
-      }
-    })
-  })
+    test('deleteVersion validation fails when token is undefined', done => {
 
-  test('deleteVersion validation fails when token is empty string', done => {
-
-    client.deleteVersion(getDeleteVersionParams({token: ''})).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing token')
-        done()
-      }
-    })
-  })
-
-  test('deleteVersion validation fails when packageOwner is undefined', done => {
-
-    const params = getDeleteVersionParams({
-      token: '123',
-      packageOwner: undefined
+      client.deleteVersion(getDeleteVersionParams({token: undefined})).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing token')
+          done()
+        }
+      })
     })
 
-    client.deleteVersion(params).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing packageOwner')
-        done()
-      }
-    })
-  })
+    test('deleteVersion validation fails when token is empty string', done => {
 
-  test('deleteVersion validation fails when packageOwner is empty string', done => {
-
-    const params = getDeleteVersionParams({
-      token: '123',
-      packageOwner: ''
+      client.deleteVersion(getDeleteVersionParams({token: ''})).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing token')
+          done()
+        }
+      })
     })
 
-    client.deleteVersion(params).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing packageOwner')
-        done()
-      }
-    })
-  })
+    test('deleteVersion validation fails when packageOwner is undefined', done => {
 
-  test('deleteVersion validation fails when packageName is undefined', done => {
+      const params = getDeleteVersionParams({
+        token: '123',
+        packageOwner: undefined
+      })
 
-    const params = getDeleteVersionParams({
-      token: '123',
-      packageOwner: 'actions',
-      packageName: undefined
-    })
-
-    client.deleteVersion(params).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing packageName')
-        done()
-      }
-    })
-  })
-
-  test('deleteVersion validation fails when packageName is empty string', done => {
-
-    const params = getDeleteVersionParams({
-      token: '123',
-      packageOwner: 'actions',
-      packageName: ''
+      client.deleteVersion(params).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing packageOwner')
+          done()
+        }
+      })
     })
 
-    client.deleteVersion(params).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing packageName')
-        done()
-      }
-    })
-  })
+    test('deleteVersion validation fails when packageOwner is empty string', done => {
 
-  test('deleteVersion validation fails when packageType is undefined', done => {
+      const params = getDeleteVersionParams({
+        token: '123',
+        packageOwner: ''
+      })
 
-    const params = getDeleteVersionParams({
-      token: '123',
-      packageOwner: 'actions',
-      packageName: 'alpine',
-      packageType: undefined
+      client.deleteVersion(params).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing packageOwner')
+          done()
+        }
+      })
     })
 
-    client.deleteVersion(params).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing packageType')
-        done()
-      }
-    })
-  })
+    test('deleteVersion validation fails when packageName is undefined', done => {
 
-  test('deleteVersion validation fails when packageType is unknown', done => {
+      const params = getDeleteVersionParams({
+        token: '123',
+        packageOwner: 'actions',
+        packageName: undefined
+      })
 
-    const params = getDeleteVersionParams({
-      token: '123',
-      packageOwner: 'actions',
-      packageName: 'alpine',
-      packageType: PackageType.UNKNOWN
-    })
-
-    client.deleteVersion(params).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing packageType')
-        done()
-      }
-    })
-  })
-
-  test('deleteVersion validation fails when versionId is unknown', done => {
-
-    const params = getDeleteVersionParams({
-      token: '123',
-      packageOwner: 'actions',
-      packageName: 'alpine',
-      packageType: PackageType.CONTAINER,
-      versionId: undefined
+      client.deleteVersion(params).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing packageName')
+          done()
+        }
+      })
     })
 
-    client.deleteVersion(params).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing versionId')
-        done()
-      }
-    })
-  })
+    test('deleteVersion validation fails when packageName is empty string', done => {
 
-  test('deleteVersion validation fails when versionId is 0', done => {
+      const params = getDeleteVersionParams({
+        token: '123',
+        packageOwner: 'actions',
+        packageName: ''
+      })
 
-    const params = getDeleteVersionParams({
-      token: '123',
-      packageOwner: 'actions',
-      packageName: 'alpine',
-      packageType: PackageType.CONTAINER,
-      versionId: 0
+      client.deleteVersion(params).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing packageName')
+          done()
+        }
+      })
     })
 
-    client.deleteVersion(params).subscribe({
-      error: e => {
-        expect(e.message).toBe('missing versionId')
-        done()
-      }
+    test('deleteVersion validation fails when packageType is undefined', done => {
+
+      const params = getDeleteVersionParams({
+        token: '123',
+        packageOwner: 'actions',
+        packageName: 'alpine',
+        packageType: undefined
+      })
+
+      client.deleteVersion(params).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing packageType')
+          done()
+        }
+      })
+    })
+
+    test('deleteVersion validation fails when packageType is unknown', done => {
+
+      const params = getDeleteVersionParams({
+        token: '123',
+        packageOwner: 'actions',
+        packageName: 'alpine',
+        packageType: PackageType.UNKNOWN
+      })
+
+      client.deleteVersion(params).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing packageType')
+          done()
+        }
+      })
+    })
+
+    test('deleteVersion validation fails when versionId is unknown', done => {
+
+      const params = getDeleteVersionParams({
+        token: '123',
+        packageOwner: 'actions',
+        packageName: 'alpine',
+        packageType: PackageType.CONTAINER,
+        versionId: undefined
+      })
+
+      client.deleteVersion(params).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing versionId')
+          done()
+        }
+      })
+    })
+
+    test('deleteVersion validation fails when versionId is 0', done => {
+
+      const params = getDeleteVersionParams({
+        token: '123',
+        packageOwner: 'actions',
+        packageName: 'alpine',
+        packageType: PackageType.CONTAINER,
+        versionId: 0
+      })
+
+      client.deleteVersion(params).subscribe({
+        error: e => {
+          expect(e.message).toBe('missing versionId')
+          done()
+        }
+      })
+    })
+
+    test('deleteVersion succeeds for owner type user', done => {
+
+      const params = getDeleteVersionParams({
+        packageOwner: 'actions',
+        packageName: 'alpine',
+        packageType: PackageType.CONTAINER,
+        versionId: 2
+      })
+
+      client.deleteVersion(params).subscribe({
+        next: x => {
+          console.log('next')
+          console.log(x)
+          // done()
+        },
+        error: e => {
+          console.log('error')
+          console.log(e)
+          done()
+        },
+        complete: () => {
+          console.log('complete')
+          done()
+        }
+      })
     })
   })
 })
