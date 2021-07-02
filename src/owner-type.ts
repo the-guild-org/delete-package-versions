@@ -1,8 +1,8 @@
 
 export const enum OwnerType {
-  UNKNOWN = 'Unknown',
-  USER = 'User',
-  ORG = 'Organization'
+  UNKNOWN = 'unknown',
+  USER = 'user',
+  ORG = 'organization'
 }
 
 export function toOwnerType(type: string): OwnerType {
