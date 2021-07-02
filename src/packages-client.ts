@@ -1,8 +1,22 @@
 
 import {Observable} from 'rxjs'
+import {PackageType} from './package-type'
+import {OwnerType} from './owner-type'
+
+export interface PackagesClientParams {
+  token: string
+  packageOwner: string
+  packageOwnerType?: OwnerType
+  packageName: string
+  packageType: PackageType
+}
+
+export interface DeleteVersionParams extends PackagesClientParams {
+  versionId: number
+}
 
 export interface PackagesClient {
-  deleteVersion(packageOwner: string, packageName: string, packageType: string, id: number): Observable<boolean>
+  deleteVersion(params: DeleteVersionParams): Observable<boolean>
 }
 
 // import {getOctokit} from '@actions/github'
