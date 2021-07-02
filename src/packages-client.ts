@@ -25,7 +25,7 @@ export interface PackagesClient {
 //
 // export async function getOwnerType(): Promise<RestEndpointMethodTypes["users"]["getByUsername"]["response"]> {
 //
-//   const octokit = getOctokit('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')
+//   const octokit = getOctokit('')
 //
 //   return octokit.rest.users.getByUsername({
 //     username: 'trent-j'
