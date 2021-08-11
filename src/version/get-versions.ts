@@ -71,7 +71,7 @@ export function queryForAllVersions(
       }
     }) as Promise<GetVersionsQueryResponse>
   ).pipe(
-    catchError((err: GraphQlQueryResponse) => {
+    catchError((err: GraphQlQueryResponse<GetVersionsQueryResponse>) => {
       const msg = 'query for oldest version failed.'
       return throwError(
         err.errors && err.errors.length > 0

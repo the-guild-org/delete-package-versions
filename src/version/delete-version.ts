@@ -30,7 +30,7 @@ export function deletePackageVersion(
       }
     }) as Promise<DeletePackageVersionMutationResponse>
   ).pipe(
-    catchError((err: GraphQlQueryResponse) => {
+    catchError((err: GraphQlQueryResponse<DeletePackageVersionMutationResponse>) => {
       const msg = 'delete version mutation failed.'
       return throwError(
         err.errors && err.errors.length > 0
