@@ -2,6 +2,7 @@ import {from, Observable, merge, throwError, of} from 'rxjs'
 import {catchError, map, tap} from 'rxjs/operators'
 import {GraphQlQueryResponse} from '@octokit/graphql/dist-types/types'
 import {graphql} from './graphql'
+import {PackageInfo} from '.'
 
 export interface DeletePackageVersionMutationResponse {
   deletePackageVersion: {
@@ -9,12 +10,13 @@ export interface DeletePackageVersionMutationResponse {
   }
 }
 
-const mutation = `
+const mutation = /* GraphQL */ `
   mutation deletePackageVersion($packageVersionId: String!) {
-      deletePackageVersion(input: {packageVersionId: $packageVersionId}) {
-          success
-      }
-  }`
+    deletePackageVersion(input: {packageVersionId: $packageVersionId}) {
+      success
+    }
+  }
+`
 
 export function deletePackageVersion(
   packageVersionId: string,
@@ -41,25 +43,30 @@ export function deletePackageVersion(
 }
 
 export function deletePackageVersions(
-  packageVersionIds: string[],
+  packageInfo: PackageInfo,
+  keepOnly: number,
   token: string
 ): Observable<boolean> {
-  if (packageVersionIds.length === 0) {
-    console.log('no package version ids found, no versions will be deleted')
+  if (packageInfo.versions.length <= keepOnly) {
+    console.log(
+      `${packageInfo.name} no version will be deleted (available versions: ${packageInfo.versions.length})`
+    )
     return of(true)
   }
 
-  const deletes = packageVersionIds.map(id =>
-    deletePackageVersion(id, token).pipe(
+  const versionsToDelete = packageInfo.versions.slice(keepOnly)
+
+  const deletes = versionsToDelete.map(node => {
+    return deletePackageVersion(node.id, token).pipe(
       tap(result => {
         if (result) {
-          console.log(`version with id: ${id}, deleted`)
+          console.log(`${packageInfo.name}@${node.version} deleted`)
         } else {
-          console.log(`version with id: ${id}, not deleted`)
+          console.log(`${packageInfo.name}@${node.version} NOT deleted`)
         }
       })
     )
-  )
+  })
 
   return merge(...deletes)
 }
